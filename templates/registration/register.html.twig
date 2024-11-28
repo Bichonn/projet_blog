@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header text-center">
+                    <h1 class="h3 mb-0">Créer un compte</h1>
+                </div>
+                <div class="card-body">
+                    {{ form_start(registrationForm) }}
+
+                        <!-- Prénom -->
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.firstName, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre prénom'}}) }}
+                            {{ form_errors(registrationForm.firstName) }}
+                        </div>
+
+                        <!-- Nom -->
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.lastName, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre nom'}}) }}
+                            {{ form_errors(registrationForm.lastName) }}
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre adresse email'}}) }}
+                            {{ form_errors(registrationForm.email) }}
+                        </div>
+
+                        <!-- Mot de passe -->
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Entrez un mot de passe sécurisé'}}) }}
+                            {{ form_errors(registrationForm.plainPassword) }}
+                        </div>
+
+                        <!-- Photo de profil (facultatif) -->
+                        <div class="form-group mb-3">
+                            {{ form_label(registrationForm.profilePicture, 'Photo de profile', {'label_attr': {'class': 'form-label'}}) }}
+                            <small class="form-text text-muted">(facultatif)</small>
+                            {{ form_widget(registrationForm.profilePicture, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(registrationForm.profilePicture) }}
+                        </div>
+
+                        <!-- Conditions générales -->
+                        <div class="form-group form-check mb-3">
+                            {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
+                            {{ form_label(registrationForm.agreeTerms, 'J\'accepte les conditions générales d\'utilisation', {'label_attr': {'class': 'form-check-label'}}) }}
+                            {{ form_errors(registrationForm.agreeTerms) }}
+                        </div>
+
+                        <!-- Bouton d'inscription -->
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Créer un compte</button>
+
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

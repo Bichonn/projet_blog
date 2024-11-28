@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'article{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h1>Modifier l'article</h1>
+                </div>
+                <div class="card-body">
+                    {{ form_start(form) }}
+                        <div class="form-group">
+                            {{ form_label(form.title) }}
+                            {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.title) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.content) }}
+                            {{ form_widget(form.content, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.content) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.picture) }}
+                            {{ form_widget(form.picture, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.picture) }}
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block mt-3">Enregistrer les modifications</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

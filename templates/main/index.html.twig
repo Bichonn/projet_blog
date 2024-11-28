@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <div class="jumbotron bg-primary text-white text-center p-5 rounded shadow-sm">
+        <h1 class="display-4 fw-bold">Bienvenue sur mon blog</h1>
+        <p class="lead">Découvrez les derniers articles sur divers sujets passionnants.</p>
+        <a href="{{ path('app_post_index') }}" class="btn btn-light btn-lg mt-3 shadow-sm">Voir les articles</a>
+    </div>
+
+    <!-- Categories Section -->
+    <div class="row mt-5">
+        <div class="col-12">
+            <h2 class="text-center fw-bold mb-4">Explorez les Catégories</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                {% for category in categories %}
+                    <div class="col">
+                        <a href="{{ path('category_posts', {'id': category.id}) }}" class="card text-decoration-none h-100 shadow-sm">
+                            <div class="card-body text-center">
+                                <h5 class="card-title text-primary fw-bold">{{ category.name }}</h5>
+                            </div>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="col">
+                        <div class="card h-100 text-center shadow-sm">
+                            <div class="card-body">
+                                <p class="card-text">Aucune catégorie trouvée.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

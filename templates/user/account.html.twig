@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte
+{% endblock %}
+
+{% block body %}
+	<div
+		class="container mt-5">
+		<!-- Titre principal centré -->
+		<div class="text-center mb-5">
+			<h1 class="display-4">Mon compte</h1>
+			<p class="text-muted">Gérez vos informations personnelles et vos paramètres de compte.</p>
+		</div>
+
+		<div
+			class="row justify-content-center">
+			<!-- Colonne principale centrée sur la page -->
+			<div class="col-lg-8">
+				<div
+					class="card shadow-sm">
+					<!-- En-tête de la carte avec un fond coloré -->
+					<div class="card-header bg-primary text-white text-center">
+						<h5 class="mb-0">Informations personnelles</h5>
+					</div>
+					<div
+						class="card-body p-4">
+						<!-- Affichage de l'avatar ou de l'icône par défaut -->
+						<div class="d-flex align-items-center mb-4">
+							{% if user.profilePicture %}
+								<!-- Photo de profil si disponible -->
+								<img src="{{ asset('uploads/profile_pictures/' ~ user.profilePicture) }}" alt="Photo de profil" class="rounded-circle me-4" style="width: 80px; height: 80px; object-fit: cover;">
+							{% else %}
+								<!-- Icône par défaut si aucune photo n'est présente -->
+								<div class="bg-secondary rounded-circle text-white d-flex justify-content-center align-items-center me-4" style="width: 80px; height: 80px;">
+									<i class="bi bi-person fs-3"></i>
+								</div>
+							{% endif %}
+							<!-- Informations principales : nom et email -->
+							<div>
+								<h4 class="mb-0">{{ user.firstName }}
+									{{ user.lastName }}</h4>
+								<p class="text-muted">{{ user.email }}</p>
+							</div>
+						</div>
+						<hr>
+
+						<!-- Champ de mot de passe avec option d'affichage -->
+						<p>
+							<strong>Mot de passe :</strong>
+						</p>
+						<div class="input-group">
+							<input type="password" class="form-control" value="{{ user.password }}" readonly>
+						</div>
+
+						<!-- Date de création du compte -->
+						<p class="mt-3">
+							<strong>Compte créé le :</strong>
+							{{ user.createdAt|date('d/m/Y à H:i') }}</p>
+
+						<!-- Statut du compte avec badge coloré -->
+						<p>
+							<strong>Statut :</strong>
+							<span class="badge {{ user.isRestricted ? 'bg-warning text-dark' : 'bg-success' }}">
+								{{ user.isRestricted ? 'Restreint' : 'Non restreint' }}
+							</span>
+						</p>
+                    
+						<!-- Bouton pour modifier les informations -->
+						<div class="text-center">
+							<a href="{{ path('app_user_account_edit') }}" class="btn btn-warning">Modifier mes informations</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

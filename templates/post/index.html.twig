@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des articles
+{% endblock %}
+
+{% block body %}
+	<div
+		class="container mt-5">
+		<!-- Hero Section -->
+		<div class="jumbotron text-center pb-5 rounded">
+			<h1 class="display-4 fw-bold">Liste des articles</h1>
+			<p class="lead">Découvrez les derniers articles sur divers sujets passionnants.</p>
+		</div>
+
+		<!-- Ajouter un article (si ROLE_ADMIN) -->
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="text-center my-4">
+				<a href="{{ path('app_post_new') }}" class="btn btn-success btn-lg shadow-sm">
+					<i class="fas fa-plus"></i>
+					Ajouter un nouveau post
+				</a>
+			</div>
+		{% endif %}
+
+		<!-- Articles Section -->
+		<div class="row">
+			{% for post in posts %}
+				<div class="col-md-4 d-flex align-items-stretch">
+					<div
+						class="card mb-4 shadow-sm d-flex flex-column">
+						<!-- Image de l'article -->
+						{% if post.picture %}
+							<img src="{{ asset('uploads/images/' ~ post.picture) }}" class="card-img-top" alt="{{ post.title }}">
+						{% else %}
+							<img src="https://via.placeholder.com/350x200" class="card-img-top" alt="Image par défaut">
+						{% endif %}
+						<!-- Contenu de la carte -->
+						<div class="card-body d-flex flex-column">
+							<h5 class="card-title">{{ post.title }}</h5>
+							<p class="card-text">{{ post.content|slice(0, 100) ~ '...' }}</p>
+							{% if post.category %}
+								<p class="card-text">
+									<strong>Catégorie :</strong>
+									<a href="{{ path('category_posts', {'id': post.category.id}) }}">{{ post.category.name }}</a>
+								</p>
+							{% else %}
+								<p class="card-text"><strong>Catégorie :</strong>Non définie</p>
+							{% endif %}
+							<div class="mt-auto">
+								<div class="d-flex flex-column gap-2">
+									<a href="{{ path('app_post_show', {'id': post.id}) }}" class="btn btn-primary w-100">Consulter l'article</a>
+									{% if is_granted('ROLE_ADMIN') %}
+										<a href="{{ path('app_post_edit', {'id': post.id}) }}" class="btn btn-warning w-100">Modifier</a>
+										<form method="post" action="{{ path('app_post_delete', {'id': post.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
+											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ post.id) }}">
+											<button class="btn btn-danger w-100">Supprimer</button>
+										</form>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<p>Aucun article trouvé.</p>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}

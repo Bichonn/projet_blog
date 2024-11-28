@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon compte{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <!-- Titre principal de la page avec description -->
+    <div class="text-center mb-4">
+        <h1 class="display-4">Modifier mon compte</h1>
+        <!-- Description en texte léger -->
+        <p class="text-muted">Mettez à jour vos informations personnelles et votre photo de profil.</p>
+    </div>
+
+    <!-- Conteneur central pour le formulaire -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <!-- Carte principale contenant le formulaire -->
+            <div class="card shadow-sm">
+                <!-- En-tête de la carte avec un fond coloré -->
+                <div class="card-header bg-primary text-white text-center">
+                    <h5 class="mb-0">Modifier mes informations personnelles</h5>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Début du formulaire -->
+                    {{ form_start(form) }}
+                    
+                    <!-- Ligne contenant les champs prénom et nom -->
+                    <div class="row">
+                        <!-- Champ Prénom -->
+                        <div class="col-md-6 mb-3">
+                            <!-- Label avec un style en gras -->
+                            {{ form_label(form.firstName, 'Prénom', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            <!-- Champ d'entrée avec des classes pour le style -->
+                            {{ form_widget(form.firstName, {'attr': {'class': 'form-control shadow-sm', 'placeholder': 'Entrez votre prénom'}}) }}
+                            <!-- Affichage des erreurs éventuelles -->
+                            {{ form_errors(form.firstName) }}
+                        </div>
+                        <!-- Champ Nom -->
+                        <div class="col-md-6 mb-3">
+                            {{ form_label(form.lastName, 'Nom', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.lastName, {'attr': {'class': 'form-control shadow-sm', 'placeholder': 'Entrez votre nom'}}) }}
+                            {{ form_errors(form.lastName) }}
+                        </div>
+                    </div>
+
+                    <!-- Ligne pour le champ email -->
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control shadow-sm', 'placeholder': 'Entrez votre adresse email'}}) }}
+                            {{ form_errors(form.email) }}
+                        </div>
+                    </div>
+
+                    <!-- Ligne pour le champ mot de passe -->
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            {{ form_label(form.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control shadow-sm', 'placeholder': 'Entrez un mot de passe sécurisé'}}) }}
+                            {{ form_errors(form.plainPassword) }}
+                        </div>
+                    </div>
+
+                    <!-- Ligne pour le champ photo de profil -->
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            {{ form_label(form.profilePicture, 'Photo de profil', {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                            {{ form_widget(form.profilePicture, {'attr': {'class': 'form-control shadow-sm'}}) }}
+                            {{ form_errors(form.profilePicture) }}
+                        </div>
+                    </div>
+
+                    <!-- Bouton de soumission -->
+                    <div class="d-grid mt-3">
+                        <button type="submit" class="btn btn-primary btn-lg shadow">
+                            Enregistrer les modifications
+                        </button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

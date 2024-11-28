@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <!-- Bouton Retour -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <a href="{{ path('app_post_index') }}" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left"></i> Retour aux articles
+            </a>
+        </div>
+    </div>
+
+    <!-- Section Article -->
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="display-4 fw-bold text-center mb-3">{{ post.title }}</h1>
+            <p class="lead text-justify">{{ post.content }}</p>
+        </div>
+        <div class="col-md-4 text-center">
+            {% if post.picture %}
+                <img src="{{ asset('uploads/images/' ~ post.picture) }}" class="img-fluid rounded shadow" alt="{{ post.title }}">
+            {% else %}
+                <img src="https://via.placeholder.com/350x200" class="img-fluid rounded shadow" alt="Image par défaut">
+            {% endif %}
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Section Commentaires -->
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="mb-4">Commentaires</h2>
+            {% for comment in post.comments %}
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title mb-1">
+                            {{ comment.user ? comment.user.firstName ~ ' ' ~ comment.user.lastName : 'Anonyme' }}
+                        </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">
+                            Posté le {{ comment.createdAt|date('d/m/Y à H:i') }}
+                        </h6>
+                        <p class="card-text">{{ comment.content }}</p>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-muted">Aucun commentaire pour cet article.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Section Ajouter un commentaire -->
+    {% if is_granted('ROLE_USER') %}
+        <div class="row mt-5">
+            <div class="col-md-8">
+                <h2>Ajouter un commentaire</h2>
+                {% if not app.user.isRestricted %}
+                    {{ form_start(commentForm, {'action': path('app_comment_new', {'id': post.id}), 'method': 'POST'}) }}
+                    <div class="form-group">
+                        {{ form_label(commentForm.content, 'Votre commentaire', {'label_attr': {'class': 'fw-bold'}}) }}
+                        {{ form_widget(commentForm.content, {'attr': {'class': 'form-control', 'placeholder': 'Écrivez votre commentaire ici...'}}) }}
+                        {{ form_errors(commentForm.content) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">
+                        <i class="fas fa-paper-plane"></i> Publier
+                    </button>
+                    {{ form_end(commentForm) }}
+                {% else %}
+                    <p class="alert alert-warning text-center mt-4">Vous êtes restreint et ne pouvez pas ajouter de commentaires.</p>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="row mt-5">
+            <div class="col-md-8">
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> Vous devez être connecté pour ajouter un commentaire.
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

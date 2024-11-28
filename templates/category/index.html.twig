@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des catégories{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1>Liste des catégories</h1>
+    <ul class="list-group">
+        {% for category in categories %}
+            <li class="list-group-item">
+                <a href="{{ path('category_posts', {'id': category.id}) }}">{{ category.name }}</a>
+            </li>
+        {% else %}
+            <li class="list-group-item">Aucune catégorie trouvée.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
