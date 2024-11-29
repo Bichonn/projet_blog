@@ -1,0 +1,14 @@
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.no-profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #5e5e5e;
+    display: flex;
+}

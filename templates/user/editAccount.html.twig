@@ -12,7 +12,7 @@
     </div>
 
     <!-- Conteneur central pour le formulaire -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center p-5">
         <div class="col-lg-8">
             <!-- Carte principale contenant le formulaire -->
             <div class="card shadow-sm">
@@ -31,14 +31,14 @@
                             <!-- Label avec un style en gras -->
                             {{ form_label(form.firstName, 'Prénom', {'label_attr': {'class': 'form-label fw-bold'}}) }}
                             <!-- Champ d'entrée avec des classes pour le style -->
-                            {{ form_widget(form.firstName, {'attr': {'class': 'form-control shadow-sm', 'placeholder': 'Entrez votre prénom'}}) }}
+                            {{ form_widget(form.firstName, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre prénom'}}) }}
                             <!-- Affichage des erreurs éventuelles -->
                             {{ form_errors(form.firstName) }}
                         </div>
                         <!-- Champ Nom -->
                         <div class="col-md-6 mb-3">
                             {{ form_label(form.lastName, 'Nom', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                            {{ form_widget(form.lastName, {'attr': {'class': 'form-control shadow-sm', 'placeholder': 'Entrez votre nom'}}) }}
+                            {{ form_widget(form.lastName, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre nom'}}) }}
                             {{ form_errors(form.lastName) }}
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             {{ form_label(form.email, 'Email', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                            {{ form_widget(form.email, {'attr': {'class': 'form-control shadow-sm', 'placeholder': 'Entrez votre adresse email'}}) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Entrez votre adresse email'}}) }}
                             {{ form_errors(form.email) }}
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             {{ form_label(form.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control shadow-sm', 'placeholder': 'Entrez un mot de passe sécurisé'}}) }}
+                            {{ form_widget(form.plainPassword, {'attr': {'class': 'form-control', 'placeholder': 'Entrez un mot de passe sécurisé'}}) }}
                             {{ form_errors(form.plainPassword) }}
                         </div>
                     </div>
@@ -65,14 +65,14 @@
                     <div class="row">
                         <div class="col-md-12 mb-3">
                             {{ form_label(form.profilePicture, 'Photo de profil', {'label_attr': {'class': 'form-label fw-bold'}}) }}
-                            {{ form_widget(form.profilePicture, {'attr': {'class': 'form-control shadow-sm'}}) }}
+                            {{ form_widget(form.profilePicture, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(form.profilePicture) }}
                         </div>
                     </div>
 
                     <!-- Bouton de soumission -->
                     <div class="d-grid mt-3">
-                        <button type="submit" class="btn btn-primary btn-lg shadow">
+                        <button type="submit" class="btn btn-success">
                             Enregistrer les modifications
                         </button>
                     </div>

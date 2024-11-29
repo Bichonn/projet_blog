@@ -27,7 +27,7 @@ class PostType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'label' => 'Category',
-                'placeholder' => 'Select a category',
+                'placeholder' => 'Choisir une catégorie',
                 'attr' => ['class' => 'form-control']
             ])
             ->add('content', TextareaType::class, [
