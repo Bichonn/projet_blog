@@ -23,6 +23,11 @@
                             {{ form_errors(form.content) }}
                         </div>
                         <div class="form-group">
+                            {{ form_label(form.category) }}
+                            {{ form_widget(form.category, {'attr': {'class': 'form-control'}}) }}
+                            {{ form_errors(form.category) }}
+                        </div>
+                        <div class="form-group">
                             {{ form_label(form.picture) }}
                             {{ form_widget(form.picture, {'attr': {'class': 'form-control'}}) }}
                             {{ form_errors(form.picture) }}

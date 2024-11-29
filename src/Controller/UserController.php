@@ -41,6 +41,20 @@ class UserController extends AbstractController
         return $this->redirectToRoute('admin_user_list');
     }
 
+    #[Route('/admin/users/{id}/unrestrict', name: 'admin_user_unrestrict', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function unrestrictUser(Request $request, UserRepository $userRepository, EntityManagerInterface $entityManager, int $id): Response
+    {
+        $user = $userRepository->find($id);
+
+        if ($this->isCsrfTokenValid('unrestrict' . $user->getId(), $request->request->get('_token'))) {
+            $user->setIsRestricted(false);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('admin_user_list');
+    }
+
     #[Route('/account', name: 'app_user_account')]
     public function account(): Response
     {

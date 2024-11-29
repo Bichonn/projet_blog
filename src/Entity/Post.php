@@ -29,11 +29,16 @@ class Post
     #[ORM\Column(length: 255)]
     private ?string $picture = null;
 
-    #[ORM\ManyToOne(inversedBy: 'post')]
-    private ?User $user = null;
-
     #[ORM\ManyToOne(inversedBy: 'posts')]
     private ?Category $category = null;
+
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
 
     /**
      * @var Collection<int, Comment>
@@ -47,9 +52,14 @@ class Post
     }
 
     #[ORM\PrePersist]
-    public function setPublishedAtValue(): void
+    public function setPublishedAt(): void
     {
         $this->publishedAt = new \DateTime();
+    }
+
+    public function getPublishedAt(): ?\DateTimeInterface
+    {
+        return $this->publishedAt;
     }
 
     public function getId(): ?int
@@ -113,6 +123,18 @@ class Post
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

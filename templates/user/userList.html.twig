@@ -1,53 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des utilisateurs
-{% endblock %}
+{% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
-	<div class="container mt-5">
-		<h1 class="mb-4">Liste des utilisateurs</h1>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>prénom</th>
-					<th>nom</th>
-					<th>Email</th>
-					<th>Rôles</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for user in users %}
-					<tr>
-						<td>{{ user.id }}</td>
-						<td>{{ user.firstName }}</td>
-						<td>{{ user.lastName }}</td>
-						<td>{{ user.email }}</td>
-						<td>{{ user.roles|join(', ') }}</td>
-						<td>
-							{% if 'ROLE_ADMIN' not in user.roles %}
-								{% if user.isRestricted %}
-									<form method="post" action="{{ path('admin_user_unrestrict', {'id': user.id}) }}" class="d-inline-block">
-										<input type="hidden" name="_token" value="{{ csrf_token('unrestrict' ~ user.id) }}">
-										<button class="btn btn-success btn-sm">Lever la restriction</button>
-									</form>
-								{% else %}
-									<form method="post" action="{{ path('admin_user_restrict', {'id': user.id}) }}" class="d-inline-block">
-										<input type="hidden" name="_token" value="{{ csrf_token('restrict' ~ user.id) }}">
-										<button class="btn btn-danger btn-sm">Restreindre</button>
-									</form>
-								{% endif %}
-							{% endif %}
-						</td>
-
-					</tr>
-				{% else %}
-					<tr>
-						<td colspan="3" class="text-center">Aucun utilisateur trouvé.</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-	</div>
+<div class="container mt-5">
+    <h1 class="mb-4">Liste des utilisateurs</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Email</th>
+                <th>Rôles</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.firstName }}</td>
+                    <td>{{ user.lastName }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td>
+                        {% if 'ROLE_ADMIN' not in user.roles %}
+                            {% if user.isRestricted %}
+                                <form method="post" action="{{ path('admin_user_unrestrict', {'id': user.id}) }}" class="d-inline-block">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('unrestrict' ~ user.id) }}">
+                                    <button class="btn btn-success btn-sm">Lever la restriction</button>
+                                </form>
+                            {% else %}
+                                <form method="post" action="{{ path('admin_user_restrict', {'id': user.id}) }}" class="d-inline-block">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('restrict' ~ user.id) }}">
+                                    <button class="btn btn-danger btn-sm">Restreindre</button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6" class="text-center">Aucun utilisateur trouvé.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

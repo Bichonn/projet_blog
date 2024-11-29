@@ -50,6 +50,13 @@ class PostController extends AbstractController
                 $post->setPicture($newFilename);
             }
 
+            // Set the createdAt and publishedAt fields
+            $post->setCreatedAt(new \DateTime());
+            $post->setPublishedAt(new \DateTime());
+
+            // Set the user
+            $post->setUser($this->getUser());
+
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -62,8 +69,14 @@ class PostController extends AbstractController
     }
 
     #[Route('/post/{id}', name: 'app_post_show')]
-    public function show(Post $post): Response
+    public function show(PostRepository $postRepository, $id): Response
     {
+        $post = $postRepository->find($id);
+
+        if (!$post) {
+            throw $this->createNotFoundException('The post does not exist');
+        }
+
         $commentForm = $this->createForm(CommentType::class);
 
         return $this->render('post/show.html.twig', [
@@ -112,6 +125,11 @@ class PostController extends AbstractController
     public function delete(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+            // Supprimer les commentaires associés
+            foreach ($post->getComments() as $comment) {
+                $entityManager->remove($comment);
+            }
+
             $entityManager->remove($post);
             $entityManager->flush();
         }
