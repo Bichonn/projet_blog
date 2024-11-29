@@ -57,6 +57,12 @@
 							<strong>Compte créé le :</strong>
 							{{ user.createdAt|date('d/m/Y à H:i') }}</p>
 
+						<!-- Date de dernière modification du compte -->
+						<p class="mt-3">
+							<strong>Dernière modification :</strong>
+							{{ user.updatedAt ? user.updatedAt|date('d/m/Y à H:i') : 'Jamais modifié' }}</p>
+
+
 						<!-- Statut du compte avec badge coloré -->
 						<p>
 							<strong>Statut :</strong>
@@ -64,7 +70,7 @@
 								{{ user.isRestricted ? 'Restreint' : 'Non restreint' }}
 							</span>
 						</p>
-                    
+
 						<!-- Bouton pour modifier les informations -->
 						<div class="text-center">
 							<a href="{{ path('app_user_account_edit') }}" class="btn btn-warning">Modifier mes informations</a>

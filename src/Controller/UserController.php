@@ -94,6 +94,8 @@ class UserController extends AbstractController
                 );
             }
 
+            $user->setUpdatedAt(new \DateTime());
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_user_account');
